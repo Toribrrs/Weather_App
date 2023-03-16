@@ -1,4 +1,5 @@
 import tkinter
+import math
 from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -75,11 +76,16 @@ def informacao():
     zona_horas = zona_horas.strftime("%d %m %y | %H:%M:%S %p")
 
     # tempo
-    tempo = dados['main']['temp']
+    temp = dados['main']['temp']
     pressao = dados['main']['pressure']
     umidade = dados['main']['humidity']
     velocidade = dados['wind']['speed']
     descricao = dados['weather'][0]['description']
+
+
+    # conversor de temperatura para celsius
+
+    C = temp - 273
 
     # mudando informacoes
 
@@ -94,6 +100,8 @@ def informacao():
 
     # passando informacoes nas labels
 
+    l_temp['text'] = round(C)
+    l_temp_nome['text'] = "°C"
     l_cidade['text'] = cidade + " - " + pais +  " / " + continente
     l_data['text'] = zona_horas
     l_umidade['text'] = umidade
@@ -140,6 +148,8 @@ def informacao():
     frame_top.configure(bg=fundo)
     frame_corpo.configure(bg=fundo)
 
+    l_temp['bg'] = fundo
+    l_temp_nome['bg'] = fundo
     l_cidade['bg'] = fundo
     l_data['bg'] = fundo
     l_umidade['bg'] = fundo
@@ -160,25 +170,31 @@ b_ver.place(x=250,y=10)
 # configurando frame_corpo
 
 l_cidade = Label(frame_corpo, text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 14"))
-l_cidade.place(x=10,y=4)
+l_cidade.place(x=10,y=8)
 
 l_data = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10"))
 l_data.place(x=10,y=54)
 
-l_umidade = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 45"))
-l_umidade.place(x=10,y=100)
+l_temp = Label(frame_corpo, text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 30"))
+l_temp.place(x=10,y=80)
+
+l_temp_nome = Label(frame_corpo, text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 30"))
+l_temp_nome.place(x=65,y=80)
+
+l_umidade = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 25"))
+l_umidade.place(x=10,y=135)
 
 l_umidade_simbolo = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10 bold"))
-l_umidade_simbolo.place(x=85,y=110)
+l_umidade_simbolo.place(x=50,y=140)
 
 l_umidade_nome = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 8"))
-l_umidade_nome.place(x=85,y=140)
+l_umidade_nome.place(x=50,y=160)
 
 l_pressao = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10"))
-l_pressao.place(x=10,y=184)
+l_pressao.place(x=10,y=190)
 
 l_velocidade = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10"))
-l_velocidade.place(x=10,y=212)
+l_velocidade.place(x=10,y=220)
 
 l_descricao = Label(frame_corpo,text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10"))
 l_descricao.place(x=200,y=195)
